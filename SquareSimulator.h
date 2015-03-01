@@ -14,10 +14,18 @@ struct Vector {
 	}
 
 	Vector reflectOverXAxis() {
-		return Vector(x, y);
+		return Vector(x, -y);
 	}
 
 	Vector reflectOverYAxis() {
+		return Vector(-x, y);
+	}
+
+	Vector wrapXAxis(int w, int h) {
+		return Vector(x, y);
+	}
+
+	Vector wrapYAxis(int w, int h) {
 		return Vector(x, y);
 	}
 };
@@ -43,32 +51,56 @@ private:
 
 public:
 SquareSimulator(const Display & d, int fps, int sq) : Simulator(d, fps),
-		origin(400, 300), crtSpeed(300, 600), squareSize(sq)
+		origin(400, 300), crtSpeed(300, 300), squareSize(sq)
 	{ width = d.getW(); height = d.getH(); }
 
 	// outside wall collision logic goes here
-	void updateModel(double dt) {
-		Point newOrigin = origin + crtSpeed*dt;
-		if (newOrigin.x < 0 || newOrigin.x > width-squareSize) {
-			crtSpeed = crtSpeed.reflectOverYAxis();
-			if (newOrigin.x < 0) {
-				newOrigin.x = -newOrigin.x;  // ugly reflection
-			} else {
-				newOrigin.x = 2*width -2*squareSize - newOrigin.x; // also ugly
-			}			
-		}
+	//void updateModel(double dt) {
+	//	Point newOrigin = origin + crtSpeed*dt;
+	//	if (newOrigin.x < 0 || newOrigin.x > width-squareSize) {
+	//		crtSpeed = crtSpeed.reflectOverYAxis();
+	//		if (newOrigin.x < 0) {
+	//			newOrigin.x = -newOrigin.x;  // ugly reflection
+	//		} else {
+	//			newOrigin.x = 2*width -2*squareSize - newOrigin.x; // also ugly
+	//		}			
+	//	}
 
-		if (newOrigin.y < 0 || newOrigin.y > height-squareSize) {
-			crtSpeed = crtSpeed.reflectOverXAxis();
-			if (newOrigin.y < 0) {
-				newOrigin.y = -newOrigin.y;
-			}
-			else {
-				newOrigin.y = 2*height -2*squareSize - newOrigin.y;
-			}
-		}
-		origin = newOrigin;
+	//	if (newOrigin.y < 0 || newOrigin.y > height-squareSize) {
+	//		crtSpeed = crtSpeed.reflectOverXAxis();
+	//		if (newOrigin.y < 0) {
+	//			newOrigin.y = -newOrigin.y;
+	//		}
+	//		else {
+	//			newOrigin.y = 2*height -2*squareSize - newOrigin.y;
+	//		}
+	//	}
+	//	origin = newOrigin;
+	//}
+void updateModel(double dt) {
+	Point newOrigin = origin + crtSpeed*dt;
+	if (newOrigin.x > width + squareSize) {
+// 		crtSpeed = crtSpeed.wrapYAxis(width, height);
+// 		if (newOrigin.x < 0) {
+// 			newOrigin.x = -newOrigin.x;  // ugly reflection
+// 		}
+// 		else {
+// 			newOrigin.x = 2 * width - 2 * squareSize - newOrigin.x; // also ugly
+// 		}
+		newOrigin.x = newOrigin.x - width - 2*squareSize;
 	}
+
+	if (newOrigin.y < 0 || newOrigin.y > height - squareSize) {
+		crtSpeed = crtSpeed.reflectOverXAxis();
+		if (newOrigin.y < 0) {
+			newOrigin.y = -newOrigin.y;
+		}
+		else {
+			newOrigin.y = 2 * height - 2 * squareSize - newOrigin.y;
+		}
+	}
+	origin = newOrigin;
+}
 
 	void drawModel() {
 		al_clear_to_color(al_map_rgb(0,0,0));
