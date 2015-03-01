@@ -52,7 +52,7 @@ SquareSimulator(const Display & d, int fps, int sq) : Simulator(d, fps),
 		if (newOrigin.x < 0 || newOrigin.x > width-squareSize) {
 			crtSpeed = crtSpeed.reflectOverYAxis();
 			if (newOrigin.x < 0) {
-				newOrigin.x = width-newOrigin.x;  // ugly reflection
+				newOrigin.x = -newOrigin.x;  // ugly reflection
 			} else {
 				newOrigin.x = 2*width -2*squareSize - newOrigin.x; // also ugly
 			}			
@@ -61,7 +61,7 @@ SquareSimulator(const Display & d, int fps, int sq) : Simulator(d, fps),
 		if (newOrigin.y < 0 || newOrigin.y > height-squareSize) {
 			crtSpeed = crtSpeed.reflectOverXAxis();
 			if (newOrigin.y < 0) {
-				newOrigin.y = height-newOrigin.y;
+				newOrigin.y = -newOrigin.y;
 			}
 			else {
 				newOrigin.y = 2*height -2*squareSize - newOrigin.y;
