@@ -1,27 +1,21 @@
-#ifndef __SQUARESIMULATOR_H
-#define __SQUARESIMULATOR_H
+#ifndef SQUARE_H
+#define SQUARE_H
 
-#include "Simulator.h"
-#include "Vector.h"
+#include "Drawable.h"
+#include "Movable.h"
 #include <allegro5/allegro_primitives.h>
 
-
-
-class SquareSimulator : public Simulator {
-private:
-	Point origin; // the origin of the square
-	Vector crtSpeed; // speed in pixels per sec
-	int width, height; // of the window
-	int squareSize; // of the drawn block in pixels
-
+class Square : public Drawable, public Movable
+{
 public:
-	SquareSimulator(const Display & d, int fps, int sq) : Simulator(d, fps),
-		origin(400, 300), crtSpeed(300, 600), squareSize(sq)	{
-		width = d.getW(); height = d.getH();
-	}
+	Square(const Display &dis, int fps, int sq) :
+		Drawable(dis, fps), origin(200, 300), crtSpeed(200, 400), squareSize(sq)	{
+		width = dis.getW(); height = dis.getH();
+	};
 
-	// side wall loop logic, both x and y (both ways!)
-	void updateModel(double dt) {
+	~Square();
+
+	void updateShape(double dt){
 		Point newOrigin = origin + crtSpeed*dt;
 		if (newOrigin.x > width + squareSize) {
 			newOrigin.x = newOrigin.x - width - 2 * squareSize;
@@ -42,7 +36,7 @@ public:
 		origin = newOrigin;
 	}
 
-	void drawModel() {
+	void drawShape(){
 		al_clear_to_color(al_map_rgb(0, 0, 0));
 		al_draw_rectangle(static_cast<int>(origin.x),
 			static_cast<int>(origin.y),
@@ -52,6 +46,13 @@ public:
 			2);
 		al_flip_display();
 	}
+
+private:
+	Point origin; // the origin of the square
+	Vector crtSpeed; // speed in pixels per sec
+	int width, height; // of the window
+	int squareSize; // of the drawn block in pixels
 };
+
 
 #endif
