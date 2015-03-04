@@ -8,7 +8,7 @@ public:
 
 	~Movable();
 
-	virtual void drawShape() = 0;
+	virtual void updateShape(double) = 0;
 
 protected:
 };

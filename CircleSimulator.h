@@ -3,7 +3,6 @@
 
 #include "Simulator.h"
 #include "Vector.h"
-#include "WrapAround.h"
 #include <allegro5/allegro_primitives.h>
 
 class CircleSimulator : public Simulator {
@@ -37,9 +36,6 @@ public:
 		if (newOrigin.y < 0 - radius) {
 			newOrigin.y = newOrigin.y + height + 2 * radius;
 		}
-
-		//WrapAround edge(radius, newOrigin);
-		//edge.wrap();
 
 		origin = newOrigin;
 	}

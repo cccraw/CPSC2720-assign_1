@@ -9,7 +9,7 @@ Display::Display(int w, int h) {
 	height = h;
 
 	al_init();
-	
+
 	// if the display cannot be initialized, we should throw an
 	// exception. We will deal with exceptons later in the course, so
 	// for now, we simply exit
@@ -20,6 +20,7 @@ Display::Display(int w, int h) {
 
 	al_init_primitives_addon();
 }
+
 
 Display::~Display() {
 	al_destroy_display(display);

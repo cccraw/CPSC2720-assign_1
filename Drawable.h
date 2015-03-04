@@ -7,13 +7,15 @@
 class Drawable
 {
 public:
-	Drawable(const Display &dis, int fps);
+	Drawable(const Display &dis) : display(dis) {
+	}
 
-	~Drawable();
+	//~Drawable();
 
-	virtual void updateShape(double) = 0;
+//	virtual void drawShape() = 0;
 
 protected:
+	const Display display;
 };
 
 

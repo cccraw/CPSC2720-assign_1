@@ -3,13 +3,15 @@
 
 #include "Drawable.h"
 #include "Movable.h"
+#include "Vector.h"
+#include "Display.h"
 #include <allegro5/allegro_primitives.h>
 
 class Square : public Drawable, public Movable
 {
 public:
 	Square(const Display &dis, int fps, int sq) :
-		Drawable(dis, fps), origin(200, 300), crtSpeed(200, 400), squareSize(sq)	{
+		Drawable(dis), origin(200, 300), crtSpeed(200, 400), squareSize(sq)	{
 		width = dis.getW(); height = dis.getH();
 	};
 
