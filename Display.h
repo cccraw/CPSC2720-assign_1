@@ -15,6 +15,7 @@ private:
 	ALLEGRO_DISPLAY *display;
 	int width, height;
 public:
+	
 	/// Initializes allegro and constructs a window of given size.
 	/** Exactly one object must be created before any allegro functions
 		 can be used. Both allegro and the primitives add-on (for drawing)

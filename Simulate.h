@@ -25,6 +25,7 @@ public:
 		al_register_event_source(eventQueue, al_get_timer_event_source(timer));
 
 		al_start_timer(timer);
+
 	}
 
 	Simulate::~Simulate() {
@@ -37,7 +38,7 @@ public:
 	void run() {
 		bool redraw = true;
 		double crtTime, prevTime = 0;
-		
+
 		//Create a list of random shapes (did not work, enum can't be redefined ): )
 		//list<shapes> items; 
 		//int i = 1;
@@ -62,8 +63,9 @@ public:
 		//	}
 		//}
 
-		Square sq(display, FPS, 10);
-		Circle c1(display, FPS, 100);
+		Square sq(display, FPS, sz);
+		Circle c1(display, FPS, sz1);
+		//Ground gr(display);
 
 		while (1) {
 			ALLEGRO_EVENT ev;
@@ -86,6 +88,16 @@ public:
 				al_clear_to_color(al_map_rgb(0, 0, 0));
 				sq.drawShape();
 				c1.drawShape();
+				//gr.drawShape();
+
+				al_draw_line(-1, 550, 100, 500, al_map_rgb(255, 100, 100), 3);
+				al_draw_line(100, 500, 200, 555, al_map_rgb(255, 100, 100), 3);
+				al_draw_line(200, 555, 300, 480, al_map_rgb(255, 100, 100), 3);
+				al_draw_line(300, 480, 400, 450, al_map_rgb(255, 100, 100), 3);
+				al_draw_line(400, 450, 500, 580, al_map_rgb(255, 100, 100), 3);
+				al_draw_line(500, 580, 600, 510, al_map_rgb(255, 100, 100), 3);
+				al_draw_line(600, 510, 700, 400, al_map_rgb(255, 100, 100), 3);
+				al_draw_line(700, 400, 801, 550, al_map_rgb(255, 100, 100), 3);
 
 				al_flip_display();
 
@@ -95,11 +107,15 @@ public:
 	}
 
 private:
+
 	int FPS;
 	ALLEGRO_EVENT_QUEUE *eventQueue;
 	ALLEGRO_TIMER *timer;
 	const Display display;
 	enum shapes { Squ, Cir, last };
+	int sz = rand() % 100;
+	int sz1 = rand() % 100;
+
 };
 
 #endif

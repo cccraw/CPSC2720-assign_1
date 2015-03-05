@@ -11,8 +11,9 @@ class Square : public Drawable, public Movable
 {
 public:
 	Square(const Display &dis, int fps, int sq) :
-		Drawable(dis), origin(200, 300), crtSpeed(200, 400), squareSize(sq)	{
+		Drawable(dis), origin(-150, 300), crtSpeed(200, 0), squareSize(sq)	{
 		width = dis.getW(); height = dis.getH();
+
 	};
 
 //	~Square(){};
@@ -44,7 +45,7 @@ public:
 			static_cast<int>(origin.x) + squareSize,
 			static_cast<int>(origin.y) + squareSize,
 			colr,
-			2);
+			sz);
 	}
 	
 	ALLEGRO_COLOR getColor(){
@@ -53,16 +54,17 @@ public:
 		g = rand() % 255;
 		b = rand() % 255;
 		return al_map_rgb(r, g, b);
-
 	}
 
 
 private:
+
 	Point origin; // the origin of the square
 	Vector crtSpeed; // speed in pixels per sec
 	int width, height; // of the window
 	int squareSize; // of the drawn block in pixels
 	ALLEGRO_COLOR colr = getColor();
+	int sz = rand() % 15;
 };
 
 
