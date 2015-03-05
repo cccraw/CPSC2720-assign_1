@@ -8,6 +8,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <cstdlib>
+#include <list>
 
 class Simulate {
 public:
@@ -41,9 +42,13 @@ public:
 			ALLEGRO_EVENT ev;
 			al_wait_for_event(eventQueue, &ev);
 
+			//Square sq(display, FPS, 10);
+
+
 			if (ev.type == ALLEGRO_EVENT_TIMER) {
 				crtTime = al_current_time();
-				//				updateShape(crtTime - prevTime);
+//				al_register_event_source(eventQueue, al_get_display_event_source(display));
+				//sq.updateShape(crtTime - prevTime);
 				prevTime = crtTime;
 				redraw = true;
 			}
@@ -52,14 +57,11 @@ public:
 			}
 
 			if (redraw && al_is_event_queue_empty(eventQueue)) {
-				Ground gr(display);
-				float x = gr.ground_vertex.begin()->x;
-				float y = gr.ground_vertex.begin()->y;
-				gr.ground_vertex.pop_front();
-				float x2 = gr.ground_vertex.begin()->x;
-				float y2 = gr.ground_vertex.begin()->y;
-				ALLEGRO_COLOR randColor = getColor();
-				al_draw_line(x, y, x2, y2, randColor, 5);
+				al_clear_to_color(al_map_rgb(0, 0, 0));
+				al_draw_line(100, 100, 300, 300, al_map_rgb(100,100,100), 3);
+				al_draw_rectangle(400, 200, 500, 400, al_map_rgb(200, 200, 200), 4);
+				//sq.drawShape();
+				al_flip_display();
 
 				redraw = false;
 			}

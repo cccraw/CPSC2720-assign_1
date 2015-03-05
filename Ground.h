@@ -11,11 +11,11 @@ using namespace std;
 
 class Point_t{
 public:
-	friend class Ground; friend class Simulate;
+	friend class Ground;
 	Point_t()
 	{
 		srand(time(NULL));
-		x = rand() % display.getW();
+		x = rand() % display.getW() / 10;
 		y = rand() % (display.getH() / 3) + (display.getH() / 2);
 		//mod(screen height /3)
 	}
@@ -31,21 +31,29 @@ public:
 	friend class Simulate;
 
 	Ground(const Display &dis) : display(dis), Drawable(dis) {
-		Point_t *dot = new Point_t();
-		ground_vertex.push_back(*dot);
-		while (ground_vertex.back().x < display.getW()) {
-			//int temp_x = ground_vertex.back().x;
-			if (dot->x < ground_vertex.back().x) {
-				delete dot;
-				dot = new Point_t();
-			}
-			else {
-				ground_vertex.push_back(*dot);
-				delete dot;
-				dot = new Point_t();
-			}
-		}
-		delete dot;
+	//	while (ground_vertex.back().x < display.getW()){
+			//Point_t *dot = new Point_t();
+			//ground_vertex.push_back(*dot);
+			//delete dot;
+		//}
+
+
+
+		//Point_t *dot = new Point_t();
+		//ground_vertex.push_back(*dot);
+		//while (ground_vertex.back().x < display.getW()) {
+		//	//int temp_x = ground_vertex.back().x;
+		//	if (dot->x < ground_vertex.back().x) {
+		//		delete dot;
+		//		dot = new Point_t();
+		//	}
+		//	else {
+		//		ground_vertex.push_back(*dot);
+		//		delete dot;
+		//		dot = new Point_t();
+		//	}
+		//}
+		//delete dot;
 	}
 
 	//~Ground();

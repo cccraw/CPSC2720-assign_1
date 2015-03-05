@@ -4,11 +4,12 @@
 class Movable
 {
 public:
-	Movable();
+	Movable(){};
 
-	~Movable();
+	~Movable(){};
 
 	virtual void updateShape(double) = 0;
+	//virtual void drawShape() = 0;
 
 protected:
 };

@@ -24,7 +24,6 @@ public:
 	 */
 	Display(int w = 800, int h = 600);
 
-	void init();
 
 	/// Frees allegro resources
 	/**

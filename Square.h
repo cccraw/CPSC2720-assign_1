@@ -15,7 +15,7 @@ public:
 		width = dis.getW(); height = dis.getH();
 	};
 
-	~Square();
+//	~Square(){};
 
 	void updateShape(double dt){
 		Point newOrigin = origin + crtSpeed*dt;
@@ -39,14 +39,14 @@ public:
 	}
 
 	void drawShape(){
-		al_clear_to_color(al_map_rgb(0, 0, 0));
+//		al_clear_to_color(al_map_rgb(0, 0, 0));
 		al_draw_rectangle(static_cast<int>(origin.x),
 			static_cast<int>(origin.y),
 			static_cast<int>(origin.x) + squareSize,
 			static_cast<int>(origin.y) + squareSize,
 			al_map_rgb(200, 200, 0),
 			2);
-		al_flip_display();
+		//al_flip_display();
 	}
 
 private:
