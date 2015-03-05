@@ -39,21 +39,30 @@ public:
 	}
 
 	void drawShape(){
-//		al_clear_to_color(al_map_rgb(0, 0, 0));
 		al_draw_rectangle(static_cast<int>(origin.x),
 			static_cast<int>(origin.y),
 			static_cast<int>(origin.x) + squareSize,
 			static_cast<int>(origin.y) + squareSize,
-			al_map_rgb(200, 200, 0),
+			colr,
 			2);
-		//al_flip_display();
 	}
+	
+	ALLEGRO_COLOR getColor(){
+		int r, g, b;
+		r = rand() % 255;
+		g = rand() % 255;
+		b = rand() % 255;
+		return al_map_rgb(r, g, b);
+
+	}
+
 
 private:
 	Point origin; // the origin of the square
 	Vector crtSpeed; // speed in pixels per sec
 	int width, height; // of the window
 	int squareSize; // of the drawn block in pixels
+	ALLEGRO_COLOR colr = getColor();
 };
 
 

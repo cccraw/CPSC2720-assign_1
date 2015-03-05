@@ -14,6 +14,8 @@ public:
 
 //	virtual void drawShape() = 0;
 
+
+
 protected:
 	const Display display;
 };

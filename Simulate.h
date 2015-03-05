@@ -37,18 +37,44 @@ public:
 	void run() {
 		bool redraw = true;
 		double crtTime, prevTime = 0;
+		
+		//Create a list of random shapes (did not work, enum can't be redefined ): )
+		//list<shapes> items; 
+		//int i = 1;
+		//while (i < 5)
+		//{
+		//	shapes nextItem = static_cast<shapes>(rand() % last);
+		//	items.push_back(nextItem);
+		//	i++;
+		//}
+
+		////create each shape
+		//enum names { sh1, sh2, sh3, sh3, sh5, last };
+		//while (!items.empty()) {
+		//	for (int namInt = sh1; namInt != last; namInt++) {
+		//		shapes popItem = items.front();
+		//		items.pop_front();
+		//		if (popItem == Squ)
+		//			Square namInt(display, FPS, 100);
+		//		else{
+		//			Circle namInt(display, FPS, 100);
+		//		}
+		//	}
+		//}
+
+		Square sq(display, FPS, 10);
+		Circle c1(display, FPS, 100);
 
 		while (1) {
 			ALLEGRO_EVENT ev;
 			al_wait_for_event(eventQueue, &ev);
 
-			//Square sq(display, FPS, 10);
 
 
 			if (ev.type == ALLEGRO_EVENT_TIMER) {
 				crtTime = al_current_time();
-//				al_register_event_source(eventQueue, al_get_display_event_source(display));
-				//sq.updateShape(crtTime - prevTime);
+				sq.updateShape(crtTime - prevTime);
+				c1.updateShape(crtTime - prevTime);
 				prevTime = crtTime;
 				redraw = true;
 			}
@@ -58,22 +84,14 @@ public:
 
 			if (redraw && al_is_event_queue_empty(eventQueue)) {
 				al_clear_to_color(al_map_rgb(0, 0, 0));
-				al_draw_line(100, 100, 300, 300, al_map_rgb(100,100,100), 3);
-				al_draw_rectangle(400, 200, 500, 400, al_map_rgb(200, 200, 200), 4);
-				//sq.drawShape();
+				sq.drawShape();
+				c1.drawShape();
+
 				al_flip_display();
 
 				redraw = false;
 			}
 		}
-	}
-	ALLEGRO_COLOR getColor(){
-		int r, g, b;
-		r = rand() % 255;
-		g = rand() % 255;
-		b = rand() % 255;
-		return al_map_rgb(r, g, b);
-
 	}
 
 private:
@@ -81,6 +99,7 @@ private:
 	ALLEGRO_EVENT_QUEUE *eventQueue;
 	ALLEGRO_TIMER *timer;
 	const Display display;
+	enum shapes { Squ, Cir, last };
 };
 
 #endif
