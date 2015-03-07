@@ -23,7 +23,7 @@ public:
 				newOrigin.x = newOrigin.x - width - 2 * radius;
 			}
 
-			//not needed for this program
+			//not needed for this program but want to keep
 
 			/*if (newOrigin.x < 0 - radius){
 				newOrigin.x = newOrigin.x + width + 2 * radius;
@@ -51,15 +51,7 @@ public:
 				sz);
 		}
 
-		ALLEGRO_COLOR getColor(){
-			int r, g, b;
-			r = rand() % 255;
-			g = rand() % 255;
-			b = rand() % 255;
-			return al_map_rgb(r, g, b);
-		}
-
-
+	
 private:
 
 	Point origin; // the origin of the Circle
@@ -68,8 +60,6 @@ private:
 	float radius; // of the circle
 	ALLEGRO_COLOR colr = getColor();
 	int sz = rand() % 15;
-	int down = 0;
-	int floor = 200;
 	
 };
 

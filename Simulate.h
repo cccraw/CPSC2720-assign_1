@@ -39,33 +39,12 @@ public:
 		bool redraw = true;
 		double crtTime, prevTime = 0;
 
-		//Create a list of random shapes (did not work, enum can't be redefined ): )
-		//list<shapes> items; 
-		//int i = 1;
-		//while (i < 5)
-		//{
-		//	shapes nextItem = static_cast<shapes>(rand() % last);
-		//	items.push_back(nextItem);
-		//	i++;
-		//}
 
-		////create each shape
-		//enum names { sh1, sh2, sh3, sh3, sh5, last };
-		//while (!items.empty()) {
-		//	for (int namInt = sh1; namInt != last; namInt++) {
-		//		shapes popItem = items.front();
-		//		items.pop_front();
-		//		if (popItem == Squ)
-		//			Square namInt(display, FPS, 100);
-		//		else{
-		//			Circle namInt(display, FPS, 100);
-		//		}
-		//	}
-		//}
+		//create each shape
 
 		Square sq(display, FPS, sz);
 		Circle c1(display, FPS, sz1);
-		//Ground gr(display);
+		Ground gr(display);
 
 		while (1) {
 			ALLEGRO_EVENT ev;
@@ -86,19 +65,10 @@ public:
 
 			if (redraw && al_is_event_queue_empty(eventQueue)) {
 				al_clear_to_color(al_map_rgb(0, 0, 0));
+				gr.drawShape();
 				sq.drawShape();
 				c1.drawShape();
-				//gr.drawShape();
-
-				al_draw_line(-1, 550, 100, 500, al_map_rgb(255, 100, 100), 3);
-				al_draw_line(100, 500, 200, 555, al_map_rgb(255, 100, 100), 3);
-				al_draw_line(200, 555, 300, 480, al_map_rgb(255, 100, 100), 3);
-				al_draw_line(300, 480, 400, 450, al_map_rgb(255, 100, 100), 3);
-				al_draw_line(400, 450, 500, 580, al_map_rgb(255, 100, 100), 3);
-				al_draw_line(500, 580, 600, 510, al_map_rgb(255, 100, 100), 3);
-				al_draw_line(600, 510, 700, 400, al_map_rgb(255, 100, 100), 3);
-				al_draw_line(700, 400, 801, 550, al_map_rgb(255, 100, 100), 3);
-
+			
 				al_flip_display();
 
 				redraw = false;

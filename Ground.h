@@ -38,81 +38,21 @@ public:
 
 	Ground(const Display &dis) : display(dis), Drawable(dis) {
 
-		Point_t *temp = new Point_t(-1, 550);
-		ground_vertex.push_back(*temp);
-		delete temp;
-		temp = new Point_t(100, 500);
-		ground_vertex.push_back(*temp);
-		delete temp;
-		temp = new Point_t(200, 550);
-		ground_vertex.push_back(*temp);
-		delete temp;
-		temp = new Point_t(300, 480);
-		ground_vertex.push_back(*temp);
-		delete temp;
-		temp = new Point_t(400, 450);
-		ground_vertex.push_back(*temp);
-		delete temp;
-		temp = new Point_t(500, 580);
-		ground_vertex.push_back(*temp);
-		delete temp;
-		temp = new Point_t(600, 510);
-		ground_vertex.push_back(*temp);
-		delete temp;
-		temp = new Point_t(700, 400);
-		ground_vertex.push_back(*temp);
-		delete temp;
-		temp = new Point_t(801, 550);
-		ground_vertex.push_back(*temp);
-		delete temp;
 
-		//attempt at making a random ground
-
-		//while (ground_vertex.back().x < display.getW()){
-		//	Point_t *dot = new Point_t();
-		//	ground_vertex.push_back(*dot);
-		//	delete dot;
-		//}
-
-
-
-		//Point_t *dot = new Point_t();
-		//ground_vertex.push_back(*dot);
-		//while (ground_vertex.back().x < display.getW()) {
-		//	//int temp_x = ground_vertex.back().x;
-		//	if (dot->x < ground_vertex.back().x) {
-		//		delete dot;
-		//		dot = new Point_t();
-		//	}
-		//	else {
-		//		ground_vertex.push_back(*dot);
-		//		delete dot;
-		//		dot = new Point_t();
-		//	}
-		//}
-		//delete dot;
 	}
 
 	void drawShape(){
-		while (ground_vertex.size() != 0) {
-			float x1 = ground_vertex.front().x;
-			float y1 = ground_vertex.front().y;
-			ground_vertex.pop_front();
-			float x2 = ground_vertex.front().x;
-			float y2 = ground_vertex.front().y;
-			ground_vertex.pop_front();
-
-			al_draw_line(x1, y1, x2, y2, colr, 10);
-		}
+		al_draw_line(-1, 550, 100, 500, al_map_rgb(255, 100, 100), 3);
+		al_draw_line(100, 500, 200, 555, al_map_rgb(255, 100, 100), 3);
+		al_draw_line(200, 555, 300, 480, al_map_rgb(255, 100, 100), 3);
+		al_draw_line(300, 480, 400, 450, al_map_rgb(255, 100, 100), 3);
+		al_draw_line(400, 450, 500, 580, al_map_rgb(255, 100, 100), 3);
+		al_draw_line(500, 580, 600, 510, al_map_rgb(255, 100, 100), 3);
+		al_draw_line(600, 510, 700, 400, al_map_rgb(255, 100, 100), 3);
+		al_draw_line(700, 400, 801, 550, al_map_rgb(255, 100, 100), 3);
 	}
 
-	ALLEGRO_COLOR getColor(){
-		int r, g, b;
-		r = rand() % 255;
-		g = rand() % 255;
-		b = rand() % 255;
-		return al_map_rgb(r, g, b);
-	}
+
 
 	//~Ground();
 
