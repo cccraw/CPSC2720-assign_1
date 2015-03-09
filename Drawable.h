@@ -12,7 +12,7 @@ public:
 
 	//~Drawable();
 
-//	virtual void drawShape() = 0;
+	virtual void drawShape() = 0;
 
 	ALLEGRO_COLOR getColor(){
 		int r, g, b;

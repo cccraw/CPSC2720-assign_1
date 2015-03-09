@@ -5,12 +5,14 @@
 #include "Movable.h"
 #include "Vector.h"
 #include "Display.h"
+#include "Simulate.h"
 #include <allegro5/allegro_primitives.h>
+#include <memory>
 
 class Square : public Drawable, public Movable
 {
 public:
-	Square(const Display &dis, int fps, int sq) :
+	Square(const Display &dis, int fps, int sq, shared_ptr<Ground> grPtr) :
 		Drawable(dis), origin(-150, 300), crtSpeed(200, 0), squareSize(sq)	{
 		width = dis.getW(); height = dis.getH();
 
@@ -46,6 +48,9 @@ public:
 			static_cast<int>(origin.y) + squareSize,
 			colr,
 			sz);
+	}
+	void getOrigin(){
+		
 	}
 	
 
