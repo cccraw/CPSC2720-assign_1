@@ -3,7 +3,7 @@
 
 #include "Drawable.h"
 #include "Movable.h"
-#include "Vector.h"
+#include "Vector_t.h"
 #include "Display.h"
 #include <allegro5/allegro_primitives.h>
 #include <Vector>
@@ -13,34 +13,28 @@
 class Circle : public Drawable, public Movable {
 public:
 	Circle(const Display &dis, int fps, int rad, shared_ptr<Ground> grPtr) :
-		Drawable(dis), origin(-1, 555), crtSpeed(200, 0), radius(rad)	{
+		Drawable(dis), origin(-1, 550), crtSpeed(200, 0), radius(rad), grdPtr(grPtr)	{
 		width = dis.getW(); height = dis.getH();
-
-
-
+		grVector_t();
 	};
 
 	//~Circle();
 
 	void updateShape(double dt) {
 		Point newOrigin = origin + crtSpeed*dt;
+		
+		static int elem = 0;
+		if (newOrigin.x > groundPts.at(elem).x) {
+			int i = groundPts.size();
+			angle.x = groundPts.at(elem + 1).x - groundPts.at(elem).x;
+			angle.y = groundPts.at(elem + 1).y - groundPts.at(elem).y;
+			elem++;
+			if (elem >= 15)
+				elem = 0;
+		}
 
-		//if circle leaves edge of screen
-		//not needed for this program but want to keep
-		//if (newOrigin.x > width + radius) {
-		//	newOrigin.x = newOrigin.x - width - 2 * radius;
-		//}
-		//if (newOrigin.x < 0 - radius){
-		//newOrigin.x = newOrigin.x + width + 2 * radius;
-		//}
-		//if (newOrigin.y > height + radius){
-		//newOrigin.y = newOrigin.y - height - 2 * radius;
-		//}
-		//if (newOrigin.y < 0 - radius) {
-		//newOrigin.y = newOrigin.y + height + 2 * radius;
-		//}
-
-
+		newOrigin.x += angle.x*dt;
+		newOrigin.y += angle.y*dt;
 
 		origin = newOrigin;
 	}
@@ -60,23 +54,23 @@ public:
 	//	goal = groundPts->pointAtIndex(randStart + 1);
 	//}
 
-	void grVector(){
-		Point grdpt1(-100, 550);
-		Point grdpt2(100, 500);
-		Point grdpt3(100, 500);
-		Point grdpt4(200, 555);
-		Point grdpt5(200, 555);
-		Point grdpt6(300, 480);
-		Point grdpt7(300, 480);
-		Point grdpt8(400, 450);
-		Point grdpt9(400, 450);
-		Point grdpt10(500, 580);
-		Point grdpt11(500, 580);
-		Point grdpt12(600, 510);
-		Point grdpt13(600, 510);
-		Point grdpt14(700, 400);
-		Point grdpt15(700, 400);
-		Point grdpt16(900, 550);
+	void grVector_t(){
+		Vector_t grdpt1(-100, 550);
+		Vector_t grdpt2(100, 500);
+		Vector_t grdpt3(100, 500);
+		Vector_t grdpt4(200, 555);
+		Vector_t grdpt5(200, 555);
+		Vector_t grdpt6(300, 480);
+		Vector_t grdpt7(300, 480);
+		Vector_t grdpt8(400, 450);
+		Vector_t grdpt9(400, 450);
+		Vector_t grdpt10(500, 580);
+		Vector_t grdpt11(500, 580);
+		Vector_t grdpt12(600, 510);
+		Vector_t grdpt13(600, 510);
+		Vector_t grdpt14(700, 400);
+		Vector_t grdpt15(700, 400);
+		Vector_t grdpt16(900, 550);
 
 		groundPts.push_back(grdpt1);
 		groundPts.push_back(grdpt2);
@@ -99,12 +93,14 @@ public:
 private:
 	Point origin; // the origin of the Circle
 	Point goal;
-	Vector crtSpeed; // speed in pixels per sec
+	Point angle;
+	Vector_t crtSpeed; // speed in pixels per sec
 	int width, height; // of the window
 	float radius; // of the circle
 	ALLEGRO_COLOR colr = getColor();
-	int sz = rand() % 15;
-	list<Point> groundPts;
+	int sz = rand() % 20;
+	vector<Vector_t> groundPts;
+	shared_ptr<Ground> grdPtr;
 };
 
 

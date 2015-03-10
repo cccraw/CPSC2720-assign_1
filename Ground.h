@@ -4,7 +4,7 @@
 
 #include "Display.h"
 #include "Drawable.h"
-#include "Vector.h"
+#include "Vector_t.h"
 #include <cstdlib>
 #include <ctime>
 #include <list>
@@ -43,34 +43,36 @@ public:
 	}
 
 	void drawShape(){
-	//	al_draw_line(groundPts.front().x, groundPts.front().y, groundPts.front().x, groundPts.front().y, colr, 3);
-		al_draw_line(-100, 550, 100, 500, al_map_rgb(255, 100, 100), 3);
-		al_draw_line(100, 500, 200, 555, al_map_rgb(255, 100, 100), 3);
-		al_draw_line(200, 555, 300, 480, al_map_rgb(255, 100, 100), 3);
-		al_draw_line(300, 480, 400, 450, al_map_rgb(255, 100, 100), 3);
-		al_draw_line(400, 450, 500, 580, al_map_rgb(255, 100, 100), 3);
-		al_draw_line(500, 580, 600, 510, al_map_rgb(255, 100, 100), 3);
-		al_draw_line(600, 510, 700, 400, al_map_rgb(255, 100, 100), 3);
-		al_draw_line(700, 400, 900, 550, al_map_rgb(255, 100, 100), 3);
+		for (list<Vector_t>::iterator it = groundPts.begin(); it != groundPts.end(); (it++)++) {
+				al_draw_line((*it).x, (*it).y, (*(it++)).x, (*it).y, colr, 3);
+		}
+		//al_draw_line(-100, 550, 100, 500, al_map_rgb(255, 100, 100), 3);
+		//al_draw_line(100, 500, 200, 555, al_map_rgb(255, 100, 100), 3);
+		//al_draw_line(200, 555, 300, 480, al_map_rgb(255, 100, 100), 3);
+		//al_draw_line(300, 480, 400, 450, al_map_rgb(255, 100, 100), 3);
+		//al_draw_line(400, 450, 500, 580, al_map_rgb(255, 100, 100), 3);
+		//al_draw_line(500, 580, 600, 510, al_map_rgb(255, 100, 100), 3);
+		//al_draw_line(600, 510, 700, 400, al_map_rgb(255, 100, 100), 3);
+		//al_draw_line(700, 400, 900, 550, al_map_rgb(255, 100, 100), 3);
 	}
 
 	void grlist(){
-		Vector grdpt1(-100, 550);
-		Vector grdpt2(100, 500);
-		Vector grdpt3(100, 500);
-		Vector grdpt4(200, 555);
-		Vector grdpt5(200, 555);
-		Vector grdpt6(300, 480);
-		Vector grdpt7(300, 480);
-		Vector grdpt8(400, 450);
-		Vector grdpt9(400, 450);
-		Vector grdpt10(500, 580);
-		Vector grdpt11(500, 580);
-		Vector grdpt12(600, 510);
-		Vector grdpt13(600, 510);
-		Vector grdpt14(700, 400);
-		Vector grdpt15(700, 400);
-		Vector grdpt16(900, 550);
+		Vector_t grdpt1(-100, 550);
+		Vector_t grdpt2(100, 500);
+		Vector_t grdpt3(100, 500);
+		Vector_t grdpt4(200, 555);
+		Vector_t grdpt5(200, 555);
+		Vector_t grdpt6(300, 480);
+		Vector_t grdpt7(300, 480);
+		Vector_t grdpt8(400, 450);
+		Vector_t grdpt9(400, 450);
+		Vector_t grdpt10(500, 580);
+		Vector_t grdpt11(500, 580);
+		Vector_t grdpt12(600, 510);
+		Vector_t grdpt13(600, 510);
+		Vector_t grdpt14(700, 400);
+		Vector_t grdpt15(700, 400);
+		Vector_t grdpt16(900, 550);
 
 		groundPts.push_back(grdpt1);
 		groundPts.push_back(grdpt2);
@@ -96,7 +98,8 @@ public:
 protected:
 	const Display display;
 	ALLEGRO_COLOR colr = getColor();
-	list<Vector> groundPts;
+	list<Vector_t> groundPts;
+	//shared_ptr<Ground> grdPtr = make_shared<Ground>(display);
 };
 
 

@@ -124,8 +124,6 @@ private:
 	ALLEGRO_EVENT_QUEUE *eventQueue;
 	ALLEGRO_TIMER *timer;
 	const Display display;
-	enum shapes { Squ, Cir, last };
-	//	int sz = rand() % 100;
 	list<shared_ptr<Drawable>> drawList;
 	list<shared_ptr<Movable>> moveList;
 	const int NUMSHAPES = 2;

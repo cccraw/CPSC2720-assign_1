@@ -3,7 +3,7 @@
 
 #include "Drawable.h"
 #include "Movable.h"
-#include "Vector.h"
+#include "Vector_t.h"
 #include "Display.h"
 #include "Simulate.h"
 #include <allegro5/allegro_primitives.h>
@@ -58,7 +58,7 @@ public:
 private:
 
 	Point origin; // the origin of the square
-	Vector crtSpeed; // speed in pixels per sec
+	Vector_t crtSpeed; // speed in pixels per sec
 	int width, height; // of the window
 	int squareSize; // of the drawn block in pixels
 	ALLEGRO_COLOR colr = getColor();

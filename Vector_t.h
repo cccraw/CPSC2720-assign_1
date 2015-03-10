@@ -1,18 +1,18 @@
 /*
-Vector is used for the speed of the object
+Vector_t is used for the speed of the object
 */
 
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef Vector_t_H
+#define Vector_t_H
 
 
-struct Vector {
+struct Vector_t {
 	double x;
 	double y;
-	Vector(double a = 0.0, double b = 0.0) : x(a), y(b) {};
+	Vector_t(double a = 0.0, double b = 0.0) : x(a), y(b) {};
 
-	Vector operator * (double scalar) {
-		return Vector(x*scalar, y*scalar);
+	Vector_t operator * (double scalar) {
+		return Vector_t(x*scalar, y*scalar);
 	}
 };
 
@@ -21,7 +21,7 @@ struct Point {
 	double x;
 	double y;
 	Point(double a = 0.0, double b = 0.0) : x(a), y(b) {};
-	Point operator + (Vector v) {
+	Point operator + (Vector_t v) {
 		return Point(x + v.x, y + v.y);
 	}
 };
