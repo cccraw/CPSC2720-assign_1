@@ -10,7 +10,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <cstdlib>
-#include <list>
+#include <vector>
 #include <memory>
 #include <iterator>
 
@@ -71,7 +71,7 @@ public:
 
 			if (ev.type == ALLEGRO_EVENT_TIMER) {
 				crtTime = al_current_time();
-				for (list<shared_ptr<Movable>>::iterator it = moveList.begin(); it != moveList.end(); it++) {
+				for (vector<shared_ptr<Movable>>::iterator it = moveList.begin(); it != moveList.end(); it++) {
 					(*it)->updateShape(crtTime - prevTime);
 				}
 				prevTime = crtTime;
@@ -83,7 +83,7 @@ public:
 
 			if (redraw && al_is_event_queue_empty(eventQueue)) {
 				al_clear_to_color(al_map_rgb(0, 0, 0));
-				for (list<shared_ptr<Drawable>>::iterator it = drawList.begin(); it != drawList.end(); it++) {
+				for (vector<shared_ptr<Drawable>>::iterator it = drawList.begin(); it != drawList.end(); it++) {
 					(*it)->drawShape();
 				}
 
@@ -124,9 +124,9 @@ private:
 	ALLEGRO_EVENT_QUEUE *eventQueue;
 	ALLEGRO_TIMER *timer;
 	const Display display;
-	list<shared_ptr<Drawable>> drawList;
-	list<shared_ptr<Movable>> moveList;
-	const int NUMSHAPES = 2;
+	vector<shared_ptr<Drawable>> drawList;
+	vector<shared_ptr<Movable>> moveList;
+	const int NUMSHAPES = 3;// for each shape
 	shared_ptr<Ground> grPtr;
 };
 

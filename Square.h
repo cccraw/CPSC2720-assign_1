@@ -5,64 +5,82 @@
 #include "Movable.h"
 #include "Vector_t.h"
 #include "Display.h"
-#include "Simulate.h"
 #include <allegro5/allegro_primitives.h>
+#include <Vector>
+#include <cmath>
 #include <memory>
+//#include <iostream> //for troubleshooting
 
 class Square : public Drawable, public Movable
 {
 public:
-	Square(const Display &dis, int fps, int sq, shared_ptr<Ground> grPtr) :
-		Drawable(dis), origin(-150, 300), crtSpeed(200, 0), squareSize(sq)	{
-		width = dis.getW(); height = dis.getH();
-
+	Square(const Display &dis, int fps, int sqSz, shared_ptr<Ground> grPtr) :
+		Drawable(dis), grdPtr(grPtr), squareSize(sqSz)	{
+		indexPt = 0;
+		int startIndex = rand() % grdPtr->groundPts.size(); //bad when starting at last point
+		origin = grdPtr->groundPts[startIndex];
+		indexPt = lastpt = startIndex;
+		goal = startIndex + 1;
 	};
 
 //	~Square(){};
 
-	void updateShape(double dt){
-		Point newOrigin = origin + crtSpeed*dt;
-		if (newOrigin.x > width + squareSize) {
-			newOrigin.x = newOrigin.x - width - 2 * squareSize;
+	void updateShape(double dt) {
+
+		if (origin == grdPtr->groundPts[goal]){//if at next point on the line
+			indexPt++; goal++; lastpt++;
+
+			if (indexPt == grdPtr->groundPts.size() - 1){//if at the end of the line
+				indexPt = 0;
+				lastpt = 0;
+				goal = 1;
+				origin = grdPtr->groundPts[0];
+
+			}
 		}
 
-		if (newOrigin.x < 0 - squareSize){
-			newOrigin.x = newOrigin.x + width + 2 * squareSize;
+		slope = grdPtr->angle[indexPt]; //get slope from vector of angles in ground
+		origin.x = (origin.x + (slope.x * dt)); //move the shape x
+		origin.y = (origin.y + (slope.y * dt)); //move the shape y
+
+
+		if (grdPtr->groundPts[indexPt].y<grdPtr->groundPts[goal].y){
+			if (origin.y > grdPtr->groundPts[goal].y) {//if shape goes beond goal point
+				origin.y = grdPtr->groundPts[goal].y;
+			}
+		}
+		if (grdPtr->groundPts[indexPt].y>grdPtr->groundPts[goal].y){
+			if (origin.y < grdPtr->groundPts[goal].y) {//if shape goes beond goal point
+				origin.y = grdPtr->groundPts[goal].y;
+			}
 		}
 
-		if (newOrigin.y > height + squareSize){
-			newOrigin.y = newOrigin.y - height - 2 * squareSize;
+		if (origin.x > grdPtr->groundPts[goal].x) {//if shape goes beond goal point
+			origin.x = grdPtr->groundPts[goal].x;
 		}
-
-		if (newOrigin.y < 0 - squareSize) {
-			newOrigin.y = newOrigin.y + height + 2 * squareSize;
-		}
-
-		origin = newOrigin;
 	}
-
 	void drawShape(){
-		al_draw_rectangle(static_cast<int>(origin.x),
-			static_cast<int>(origin.y),
-			static_cast<int>(origin.x) + squareSize,
-			static_cast<int>(origin.y) + squareSize,
+		al_draw_rectangle(origin.x,
+			origin.y,
+			origin.x - squareSize,
+			origin.y - squareSize,
 			colr,
 			sz);
 	}
-	void getOrigin(){
-		
-	}
-	
-
 
 private:
-
-	Point origin; // the origin of the square
+	Vector_t origin; // the origin of the Circle
+	int indexPt;
+	int goal = 1;
+	int lastpt = 0;
+	Vector_t slope;
 	Vector_t crtSpeed; // speed in pixels per sec
-	int width, height; // of the window
 	int squareSize; // of the drawn block in pixels
 	ALLEGRO_COLOR colr = getColor();
-	int sz = rand() % 15;
+	int sz = (rand() % 15) + 5;
+	//vector<Vector_t> groundPts;
+	shared_ptr<Ground> grdPtr;
+
 };
 
 
